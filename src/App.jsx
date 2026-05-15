@@ -299,9 +299,9 @@ const portfolioItems = [
 ];
 
 const contactLinks = [
-  { label: "Email", icon: "mail", href: "mailto:r3nvio@mail.ru" },
+  { label: "Telegram", icon: "send", href: "https://t.me/r3nvio" },
   { label: "Instagram", icon: "instagram", href: "https://www.instagram.com/r3nvio0?igsh=eXEyMzlpNGh0dTJw&utm_source=qr" },
-  { label: "Telegram", icon: "send", href: "https://t.me/W3akness0" },
+  { label: "Email", icon: "mail", href: "mailto:r3nvio@mail.ru" },
   { label: "ВКонтакте", icon: "vk", href: "https://vk.com/w3akness0" },
 ];
 
