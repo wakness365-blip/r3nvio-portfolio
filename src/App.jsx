@@ -28,12 +28,12 @@ const portfolioItems = [
     status: "ready",
   },
   {
-    title: "Рилс с субтитрами",
-    type: "Subtitles / Reels",
+    title: "Steam Support / UI-анимация",
+    type: "UI Motion",
     year: "2026",
-    description: "Место под будущий ролик с анимированными субтитрами, смысловыми акцентами и чистой типографикой.",
-    videoSrc: "",
-    status: "soon",
+    description: "UI-анимация для Steam Support с динамичной подачей интерфейса, акцентами на действиях пользователя и чистым моушн-ритмом.",
+    videoSrc: "/portfolio/steam-support-animation.mp4",
+    status: "ready",
   },
   {
     title: "Монтажный кейс",
