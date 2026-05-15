@@ -380,6 +380,10 @@ a {
   backdrop-filter: blur(18px);
 }
 
+.portfolio-card.portrait-card {
+  grid-row: span 2;
+}
+
 .video-frame {
   display: grid;
   aspect-ratio: 16 / 9;
@@ -390,12 +394,23 @@ a {
   background: #0f0e0d;
 }
 
+.video-frame.portrait-frame {
+  aspect-ratio: 9 / 16;
+  max-height: 520px;
+  background: radial-gradient(circle at center, rgba(216, 199, 174, 0.12), #0f0e0d 58%);
+}
+
 .portfolio-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.9;
   transition: 0.5s;
+}
+
+.portrait-frame .portfolio-video {
+  object-fit: contain;
+  background: #0f0e0d;
 }
 
 .portfolio-card:hover .portfolio-video {
@@ -447,7 +462,8 @@ a {
   margin: 12px 0 16px 0;
 }
 
-.video-actions a {
+.video-actions a,
+.video-actions button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -463,9 +479,20 @@ a {
   transition: 0.2s;
 }
 
-.video-actions a:hover {
+.video-actions button {
+  background: #f3eee7;
+  color: #000;
+}
+
+.video-actions a:hover,
+.video-actions button:hover {
   background: rgba(243, 238, 231, 0.16);
   color: #ffffff;
+}
+
+.video-actions button:hover {
+  background: #d8c7ae;
+  color: #000;
 }
 
 .portfolio-card h3 {
@@ -622,6 +649,41 @@ a {
   opacity: 0.7;
 }
 
+.video-modal {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.86);
+  backdrop-filter: blur(12px);
+}
+
+.video-modal-close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 81;
+  padding: 12px 16px;
+  border: 1px solid rgba(243, 238, 231, 0.22);
+  border-radius: 14px;
+  background: rgba(243, 238, 231, 0.1);
+  color: #f3eee7;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.video-modal-player {
+  width: min(100%, 1080px);
+  max-height: 86vh;
+  border-radius: 24px;
+  background: #000;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
+}
+
 @media (max-width: 900px) {
   .main-nav {
     display: none;
@@ -635,6 +697,14 @@ a {
   .portfolio-grid,
   .about-section {
     grid-template-columns: 1fr;
+  }
+
+  .portfolio-card.portrait-card {
+    grid-row: auto;
+  }
+
+  .video-frame.portrait-frame {
+    max-height: 680px;
   }
 
   .contact-card {

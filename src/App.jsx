@@ -33,6 +33,7 @@ const portfolioItems = [
     year: "2026",
     description: "UI-анимация для Steam Support с динамичной подачей интерфейса, акцентами на действиях пользователя и чистым моушн-ритмом.",
     videoSrc: "/portfolio/steam-support-animation.mp4",
+    orientation: "portrait",
     status: "ready",
   },
   {
@@ -308,8 +309,8 @@ export default function R3nvioPortfolio() {
               const iconName = index === 0 ? "monitor" : index === 1 ? "layers" : "cursor";
 
               return (
-                <motion.article key={item.title} variants={cardReveal} whileHover={{ y: -8, scale: 1.015, rotate: index === 1 ? 0.4 : -0.4 }} transition={{ duration: 0.25 }} className="portfolio-card">
-                  <div className="video-frame">
+                <motion.article key={item.title} variants={cardReveal} whileHover={{ y: -8, scale: 1.015, rotate: index === 1 ? 0.4 : -0.4 }} transition={{ duration: 0.25 }} className={`portfolio-card${item.orientation === "portrait" ? " portrait-card" : ""}`}>
+                  <div className={`video-frame${item.orientation === "portrait" ? " portrait-frame" : ""}`}>
                     {item.videoSrc ? (
                       <video className="portfolio-video" src={item.videoSrc} loop playsInline controls preload="metadata" />
                     ) : (
@@ -324,13 +325,16 @@ export default function R3nvioPortfolio() {
                     <span>{item.type}</span>
                     <span>{item.status === "soon" ? "скоро" : item.year}</span>
                   </div> 
-                 {item.videoSrc ? (
-  <div className="video-actions">
-    <a href={item.videoSrc} download>
-      Скачать видео
-    </a>
-  </div>
-) : null}
+                  {item.videoSrc ? (
+                    <div className="video-actions">
+                      <button type="button" onClick={() => setActiveVideo(item.videoSrc)}>
+                        Смотреть видео
+                      </button>
+                      <a href={item.videoSrc} download>
+                        Скачать видео
+                      </a>
+                    </div>
+                  ) : null}
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </motion.article>
@@ -371,23 +375,24 @@ export default function R3nvioPortfolio() {
         </motion.div>
       </section>
 
-     {activeVideo ? (
-  <div className="video-modal">
-    <button
-      type="button"
-      className="video-modal-close"
-      onClick={() => setActiveVideo(null)}
-    >
-      × Закрыть
-    </button>
+      {activeVideo ? (
+        <div className="video-modal">
+          <button
+            type="button"
+            className="video-modal-close"
+            onClick={() => setActiveVideo(null)}
+          >
+            × Закрыть
+          </button>
 
-    <video
-      className="video-modal-player"
-      src={activeVideo}
-      controls
-    />
-  </div>
-) : null}
+          <video
+            className="video-modal-player"
+            src={activeVideo}
+            controls
+            autoPlay
+          />
+        </div>
+      ) : null}
  <footer className="site-footer">
         <div>
           <LogoImage src={logoAssets.icon} alt="R3NVIO icon" className="footer-logo" />
