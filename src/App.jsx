@@ -21,7 +21,7 @@ const copy = {
     },
     work: {
       kicker: "Work",
-      title: "Избранные работы и будущие кейсы.",
+      title: "Работы и визуальные кейсы.",
       soon: "скоро",
       download: "Скачать видео",
       openCase: "Открыть кейс",
@@ -88,7 +88,7 @@ const copy = {
     },
     work: {
       kicker: "Work",
-      title: "Selected work and upcoming cases.",
+      title: "Work and visual cases.",
       soon: "soon",
       download: "Download video",
       openCase: "Open case",
@@ -265,36 +265,6 @@ const portfolioItems = [
         result: "A finished vertical case that plays and downloads correctly from the site.",
       },
     },
-  },
-  {
-    id: "editing-case",
-    title: {
-      ru: "Монтажный кейс",
-      en: "Editing Case",
-    },
-    type: "Editing Case",
-    year: "2026",
-    description: {
-      ru: "Место под будущий кейс с нарезкой, L/J-cuts, match cuts, музыкальным ритмом и саунд-дизайном.",
-      en: "A future case slot for cutting, L/J-cuts, match cuts, musical pacing, and sound design.",
-    },
-    videoSrc: "",
-    status: "soon",
-  },
-  {
-    id: "motion-ui-case",
-    title: {
-      ru: "Motion / UI кейс",
-      en: "Motion / UI Case",
-    },
-    type: "Motion / UI",
-    year: "2026",
-    description: {
-      ru: "Место под будущий моушн-кейс: UI-плашки, интерфейсная графика, переходы и финальная стилизация.",
-      en: "A future motion case slot for UI panels, interface graphics, transitions, and final styling.",
-    },
-    videoSrc: "",
-    status: "soon",
   },
 ];
 
