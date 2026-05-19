@@ -120,6 +120,8 @@ function AbstractPreview() {
 
 function WorkCard({ work, index }) {
   function handleMove(event) {
+    if (!work.abstract) return;
+
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
@@ -139,7 +141,7 @@ function WorkCard({ work, index }) {
 
   return (
     <motion.article
-      className={`work-card ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
+      className={`work-card ${!work.abstract ? "video-card" : "visual-card"} ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
       variants={reveal}
       onMouseMove={handleMove}
       onMouseLeave={resetTilt}
@@ -244,8 +246,16 @@ export default function R3nvioPortfolio() {
           </p>
         </motion.div>
         <motion.div className="portrait-placeholder" variants={reveal}>
-          <img className="portrait-logo" src={logoAssets.wordmark} alt="r3nvio" />
-          <span>Лого / Brand mark</span>
+          <div className="brand-plate">
+            <span className="brand-plate-label">Brand system</span>
+            <img className="brand-plate-icon" src={logoAssets.icon} alt="" />
+            <img className="portrait-logo" src={logoAssets.wordmark} alt="r3nvio" />
+            <div className="brand-plate-lines" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
         </motion.div>
       </motion.section>
 
