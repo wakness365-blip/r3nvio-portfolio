@@ -54,11 +54,16 @@ const approach = [
 ];
 
 const contacts = [
-  ["Email", "r3nvio@mail.ru", "mailto:r3nvio@mail.ru"],
-  ["Telegram", "@r3nvio", "https://t.me/r3nvio"],
-  ["VK", "vk.com/w3akness0", "https://vk.com/w3akness0"],
-  ["Instagram", "r3nvio0", "https://www.instagram.com/r3nvio0"],
+  ["Email", "mailto:r3nvio@mail.ru"],
+  ["Telegram", "https://t.me/r3nvio"],
+  ["VK", "https://vk.com/w3akness0"],
+  ["Instagram", "https://www.instagram.com/r3nvio0"],
 ];
+
+const logoAssets = {
+  icon: "/assets/r3nvio_icon_offwhite.png",
+  wordmark: "/assets/r3nvio_wordmark_white.png",
+};
 
 const reveal = {
   hidden: { opacity: 0, y: 42 },
@@ -80,7 +85,9 @@ function ArrowIcon() {
 function BrandMark({ compact = false }) {
   return (
     <a className={compact ? "brand compact" : "brand"} href="#top" aria-label="r3nvio">
-      <span className="brand-symbol">r3</span>
+      <span className="brand-symbol">
+        <img src={logoAssets.icon} alt="" />
+      </span>
       <span className="brand-name">r3nvio</span>
     </a>
   );
@@ -142,7 +149,7 @@ function WorkCard({ work, index }) {
         {work.abstract ? (
           <AbstractPreview />
         ) : (
-          <video src={work.video} poster={work.poster} muted loop playsInline preload="metadata" onMouseEnter={(event) => event.currentTarget.play()} onMouseLeave={(event) => event.currentTarget.pause()} />
+          <video src={work.video} poster={work.poster} controls playsInline preload="metadata" />
         )}
       </div>
       <div className="work-info">
@@ -204,7 +211,7 @@ export default function R3nvioPortfolio() {
             <div className="reel-core">
               <span className="core-ring" />
               <span className="core-ring second" />
-              <strong>r3</strong>
+              <img className="reel-logo" src={logoAssets.icon} alt="r3nvio" />
             </div>
             <div className="timeline">
               <span />
@@ -237,7 +244,8 @@ export default function R3nvioPortfolio() {
           </p>
         </motion.div>
         <motion.div className="portrait-placeholder" variants={reveal}>
-          <span>Фото / Portrait</span>
+          <img className="portrait-logo" src={logoAssets.wordmark} alt="r3nvio" />
+          <span>Лого / Brand mark</span>
         </motion.div>
       </motion.section>
 
@@ -264,10 +272,9 @@ export default function R3nvioPortfolio() {
             <h2>Открыт к проектам по монтажу, motion design и короткому контенту.</h2>
           </div>
           <div className="contacts-list">
-            {contacts.map(([label, value, href]) => (
+            {contacts.map(([label, href]) => (
               <a className="contact-link" href={href} key={label} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
-                <span>{label}</span>
-                <strong>{value}</strong>
+                <strong>{label}</strong>
               </a>
             ))}
           </div>
