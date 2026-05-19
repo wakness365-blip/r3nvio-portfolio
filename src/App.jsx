@@ -4,7 +4,7 @@ import "./styles.css";
 
 const works = [
   {
-    title: "UI Motion Concept",
+    title: "UI Motion концепт",
     category: "UI-анимация",
     description: "Анимация интерфейса с акцентом на тайминг, плавность и микро-движения.",
     video: "/portfolio/ui-ad-animation.mp4",
@@ -14,14 +14,14 @@ const works = [
   },
   {
     title: "Динамичный монтаж",
-    category: "Short-form edit",
+    category: "Короткий формат",
     description: "Короткий ролик с ритмичными склейками, звуковыми акцентами и чистой подачей.",
     video: "/portfolio/ui-sfx-animation.mp4",
     poster: "/portfolio/ui-sfx-animation-poster.jpg",
     accent: "blue",
   },
   {
-    title: "Podcast Reel",
+    title: "Подкаст-рил",
     category: "Вертикальный контент",
     description: "Фрагмент с субтитрами, темпом и минимальной графикой без визуального шума.",
     video: "/portfolio/podcast-ui-animation.mp4",
@@ -29,8 +29,8 @@ const works = [
     accent: "silver",
   },
   {
-    title: "Product Visual",
-    category: "Motion concept",
+    title: "Продуктовый визуал",
+    category: "Motion-концепт",
     description: "Минималистичная визуальная сцена с акцентом на свет, композицию и премиальность.",
     video: "/portfolio/steam-support-animation.mp4",
     poster: "/portfolio/steam-support-animation-poster.jpg",
@@ -38,8 +38,8 @@ const works = [
     accent: "violet",
   },
   {
-    title: "Visual Experiment",
-    category: "Style test",
+    title: "Визуальный эксперимент",
+    category: "Тест стиля",
     description: "Тест атмосферы, контраста, движения и визуального ритма.",
     accent: "prism",
     abstract: true,
