@@ -1165,22 +1165,41 @@ video {
   }
 
   .works-grid,
+  .portrait-grid,
+  .landscape-grid,
   .about-section,
   .approach-grid,
   .contacts-panel {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     grid-template-columns: 1fr;
   }
 
   .work-card,
   .work-card.featured,
-  .work-card.portrait {
+  .work-card.portrait,
+  .portrait-grid .work-card,
+  .landscape-grid .work-card,
+  .landscape-grid .work-card.featured {
     grid-column: auto;
     grid-row: auto;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
     min-height: auto;
   }
 
   .work-preview,
-  .featured .work-preview {
+  .work-info {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .work-preview,
+  .featured .work-preview,
+  .landscape-grid .work-preview,
+  .landscape-grid .featured .work-preview {
     height: auto;
     aspect-ratio: 16 / 10;
   }
