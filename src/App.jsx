@@ -5,8 +5,8 @@ import "./styles.css";
 const works = [
   {
     title: "Подкаст визуализация",
-    category: "Вертикальный контент",
-    description: "Вертикальный подкаст-фрагмент с B-roll подготовленный для быстрой загрузки и плавного просмотра.",
+    category: "Подкаст / соцсети",
+    description: "Вертикальный подкаст-фрагмент с B-roll, субтитрами и спокойной динамикой для социальных сетей.",
     video: "/portfolio/podkast-vizualizatsiya.mp4",
     poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
     portrait: true,
@@ -14,8 +14,8 @@ const works = [
   },
   {
     title: "Процесс монтажа UI",
-    category: "UI-анимация",
-    description: "Анимация интерфейса с акцентом на тайминг, плавность и микро-движения.",
+    category: "Motion design",
+    description: "Анимация интерфейса с акцентом на тайминг, плавность и точные микро-движения.",
     video: "/portfolio/process-montazha-ui.mp4",
     poster: "/portfolio/process-montazha-ui-poster.jpg",
     featured: true,
@@ -23,24 +23,24 @@ const works = [
   },
   {
     title: "UI motion",
-    category: "Короткий формат",
-    description: "Короткий ролик с ритмичными склейками, звуковыми акцентами и чистой подачей.",
+    category: "Social media edit",
+    description: "Динамичный ролик с ритмичными склейками, звуковыми акцентами и чистой подачей.",
     video: "/portfolio/ui-motion.mp4",
     poster: "/portfolio/ui-motion-poster.jpg",
     accent: "blue",
   },
   {
     title: "Мотивационный подкаст",
-    category: "Вертикальный контент",
-    description: "Фрагмент с субтитрами, темпом и минимальной графикой без визуального шума.",
+    category: "YouTube / Shorts",
+    description: "Подкаст-фрагмент с субтитрами, темпом и минимальной графикой без визуального шума.",
     video: "/portfolio/motivatsionnyy-podkast.mp4",
     poster: "/portfolio/motivatsionnyy-podkast-poster.jpg",
     accent: "silver",
   },
   {
     title: "Стим рилс",
-    category: "Motion-концепт",
-    description: "Минималистичная визуальная сцена с акцентом на свет, композицию и премиальность.",
+    category: "Promo / motion",
+    description: "Минималистичная промо-сцена с акцентом на свет, композицию и премиальный визуал.",
     video: "/portfolio/stim-rils.mp4",
     poster: "/portfolio/stim-rils-poster.jpg",
     portrait: true,
@@ -59,10 +59,10 @@ const portraitWorks = works.filter((work) => work.portrait);
 const landscapeWorks = works.filter((work) => !work.portrait && !work.abstract);
 
 const approach = [
-  ["Ритм", "Монтаж строится вокруг темпа, пауз и акцентов."],
-  ["Звук", "SFX, музыка и голос должны работать вместе с движением."],
-  ["Детали", "Микро-анимации, свет и композиция создают ощущение качества."],
-  ["Подача", "Каждый ролик должен выглядеть чисто, понятно и визуально дорого."],
+  ["Ритм", "Монтаж держится на темпе, паузах и точных акцентах."],
+  ["Звук", "SFX, музыка и голос работают вместе с движением и смыслом."],
+  ["Детали", "Микро-анимации, свет и композиция собирают кадр в цельную систему."],
+  ["Формат", "Видео должно быть чистым и понятным: от Reels до YouTube и промо."],
 ];
 
 const contacts = [
@@ -205,11 +205,11 @@ export default function R3nvioPortfolio() {
 
       <section className="hero">
         <motion.div className="hero-copy">
-          <motion.p variants={reveal} className="eyebrow">Motion edit / short content / visual rhythm</motion.p>
+          <motion.p variants={reveal} className="eyebrow">Video editing / motion design / dynamic content</motion.p>
           <motion.h1 variants={reveal}>r3nvio</motion.h1>
-          <motion.h2 variants={reveal}>Монтаж и моушн-дизайн для короткого контента</motion.h2>
+          <motion.h2 variants={reveal}>Видеомонтаж и motion design для динамичного контента</motion.h2>
           <motion.p variants={reveal} className="hero-text">
-            Создаю визуально точные ролики, где монтаж, звук и движение работают как единая система.
+            Создаю ролики для YouTube, соцсетей, промо и коротких форматов, где монтаж, звук и движение работают как единая система.
           </motion.p>
           <motion.div variants={reveal} className="hero-actions">
             <LightButton href="#works">Смотреть работы</LightButton>
@@ -240,7 +240,7 @@ export default function R3nvioPortfolio() {
       <motion.section id="works" className="section works-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }} transition={{ staggerChildren: 0.08 }}>
         <div className="section-heading">
           <p>Работы</p>
-          <h2>Избранные работы.</h2>
+          <h2>Видео, монтаж и motion.</h2>
         </div>
         <div className="works-stack">
           <div className="works-grid portrait-grid">
@@ -261,7 +261,7 @@ export default function R3nvioPortfolio() {
           <p className="section-kicker">О себе</p>
           <h2>Ритм, свет и чистая подача вместо визуального шума.</h2>
           <p>
-            Меня зовут Александр. Я занимаюсь монтажом, моушн-дизайном и визуальной подачей короткого контента под брендом r3nvio. В работе делаю упор на ритм, звук, детали и чистый премиальный визуал.
+            Меня зовут Александр, я работаю под брендом R3NVIO. Занимаюсь видеомонтажом, motion design и визуальной подачей динамичного контента: YouTube, соцсети, промо, подкасты и короткие форматы.
           </p>
         </motion.div>
         <motion.div className="portrait-placeholder" variants={reveal}>
@@ -281,7 +281,7 @@ export default function R3nvioPortfolio() {
       <motion.section id="approach" className="section approach-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }} transition={{ staggerChildren: 0.08 }}>
         <div className="section-heading compact-heading">
           <p>Подход</p>
-          <h2>Коротко о том, на чем держится кадр.</h2>
+          <h2>Коротко о том, на чем держится сильное видео.</h2>
         </div>
         <div className="approach-grid">
           {approach.map(([title, text], index) => (
@@ -298,7 +298,7 @@ export default function R3nvioPortfolio() {
         <motion.div className="contacts-panel" variants={reveal}>
           <div>
             <p className="section-kicker">Контакты</p>
-            <h2>Открыт к проектам по монтажу, motion design и короткому контенту.</h2>
+            <h2>Открыт к проектам по видеомонтажу, motion design, YouTube, соцсетям и промо.</h2>
           </div>
           <div className="contacts-list">
             {contacts.map(([label, href]) => (
@@ -312,7 +312,7 @@ export default function R3nvioPortfolio() {
 
       <footer className="site-footer">
         <BrandMark compact />
-        <span>Монтаж / Моушн-дизайн / Короткий контент</span>
+        <span>Видеомонтаж / Motion design / YouTube / Соцсети / Промо</span>
       </footer>
     </main>
   );

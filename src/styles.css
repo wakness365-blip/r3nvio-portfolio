@@ -1191,7 +1191,10 @@ video {
   }
 
   .work-preview,
-  .work-info {
+  .work-info,
+  .contacts-panel > *,
+  .contacts-list,
+  .contact-link {
     min-width: 0;
     max-width: 100%;
   }
