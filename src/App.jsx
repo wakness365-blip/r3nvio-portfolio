@@ -6,7 +6,7 @@ const works = [
   {
     title: "Подкаст визуализация",
     category: "Вертикальный контент",
-    description: "Вертикальный подкаст-фрагмент с чистой визуальной подачей, подготовленный для быстрой загрузки и плавного просмотра.",
+    description: "Вертикальный подкаст-фрагмент с B-roll подготовленный для быстрой загрузки и плавного просмотра.",
     video: "/portfolio/podkast-vizualizatsiya.mp4",
     poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
     portrait: true,
@@ -56,7 +56,7 @@ const works = [
 ];
 
 const portraitWorks = works.filter((work) => work.portrait);
-const landscapeWorks = works.filter((work) => !work.portrait);
+const landscapeWorks = works.filter((work) => !work.portrait && !work.abstract);
 
 const approach = [
   ["Ритм", "Монтаж строится вокруг темпа, пауз и акцентов."],
@@ -240,7 +240,7 @@ export default function R3nvioPortfolio() {
       <motion.section id="works" className="section works-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }} transition={{ staggerChildren: 0.08 }}>
         <div className="section-heading">
           <p>Работы</p>
-          <h2>Избранные визуальные концепты, монтажные тесты и motion-сцены.</h2>
+          <h2>Избранные работы.</h2>
         </div>
         <div className="works-stack">
           <div className="works-grid portrait-grid">
