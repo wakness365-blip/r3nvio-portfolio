@@ -546,11 +546,37 @@ video {
   max-width: 680px;
 }
 
+.works-stack {
+  display: grid;
+  gap: 22px;
+}
+
 .works-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-auto-flow: dense;
   gap: 18px;
+}
+
+.portrait-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.portrait-grid .work-card {
+  grid-column: auto;
+  min-height: 640px;
+}
+
+.portrait-grid .work-card.portrait {
+  grid-row: auto;
+}
+
+.portrait-grid .work-preview {
+  height: 520px;
+}
+
+.landscape-grid {
+  margin-top: 8px;
 }
 
 .work-card {

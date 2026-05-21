@@ -4,36 +4,45 @@ import "./styles.css";
 
 const works = [
   {
-    title: "UI Motion концепт",
+    title: "Подкаст визуализация",
+    category: "Вертикальный контент",
+    description: "Вертикальный подкаст-фрагмент с чистой визуальной подачей, подготовленный для быстрой загрузки и плавного просмотра.",
+    video: "/portfolio/podkast-vizualizatsiya.mp4",
+    poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
+    portrait: true,
+    accent: "cyan",
+  },
+  {
+    title: "Процесс монтажа UI",
     category: "UI-анимация",
     description: "Анимация интерфейса с акцентом на тайминг, плавность и микро-движения.",
-    video: "/portfolio/ui-ad-animation.mp4",
-    poster: "/portfolio/ui-ad-animation-poster.jpg",
+    video: "/portfolio/process-montazha-ui.mp4",
+    poster: "/portfolio/process-montazha-ui-poster.jpg",
     featured: true,
     accent: "cyan",
   },
   {
-    title: "Динамичный монтаж",
+    title: "UI motion",
     category: "Короткий формат",
     description: "Короткий ролик с ритмичными склейками, звуковыми акцентами и чистой подачей.",
-    video: "/portfolio/ui-sfx-animation.mp4",
-    poster: "/portfolio/ui-sfx-animation-poster.jpg",
+    video: "/portfolio/ui-motion.mp4",
+    poster: "/portfolio/ui-motion-poster.jpg",
     accent: "blue",
   },
   {
-    title: "Подкаст-рил",
+    title: "Мотивационный подкаст",
     category: "Вертикальный контент",
     description: "Фрагмент с субтитрами, темпом и минимальной графикой без визуального шума.",
-    video: "/portfolio/podcast-ui-animation.mp4",
-    poster: "/portfolio/podcast-ui-animation-poster.jpg",
+    video: "/portfolio/motivatsionnyy-podkast.mp4",
+    poster: "/portfolio/motivatsionnyy-podkast-poster.jpg",
     accent: "silver",
   },
   {
-    title: "Продуктовый визуал",
+    title: "Стим рилс",
     category: "Motion-концепт",
     description: "Минималистичная визуальная сцена с акцентом на свет, композицию и премиальность.",
-    video: "/portfolio/steam-support-animation.mp4",
-    poster: "/portfolio/steam-support-animation-poster.jpg",
+    video: "/portfolio/stim-rils.mp4",
+    poster: "/portfolio/stim-rils-poster.jpg",
     portrait: true,
     accent: "violet",
   },
@@ -45,6 +54,9 @@ const works = [
     abstract: true,
   },
 ];
+
+const portraitWorks = works.filter((work) => work.portrait);
+const landscapeWorks = works.filter((work) => !work.portrait);
 
 const approach = [
   ["Ритм", "Монтаж строится вокруг темпа, пауз и акцентов."],
@@ -230,10 +242,17 @@ export default function R3nvioPortfolio() {
           <p>Работы</p>
           <h2>Избранные визуальные концепты, монтажные тесты и motion-сцены.</h2>
         </div>
-        <div className="works-grid">
-          {works.map((work, index) => (
-            <WorkCard key={work.title} work={work} index={index} />
-          ))}
+        <div className="works-stack">
+          <div className="works-grid portrait-grid">
+            {portraitWorks.map((work, index) => (
+              <WorkCard key={work.title} work={work} index={index} />
+            ))}
+          </div>
+          <div className="works-grid landscape-grid">
+            {landscapeWorks.map((work, index) => (
+              <WorkCard key={work.title} work={work} index={index} />
+            ))}
+          </div>
         </div>
       </motion.section>
 
