@@ -56,7 +56,13 @@ const works = [
 ];
 
 const portraitWorks = works.filter((work) => work.portrait);
-const landscapeWorks = works.filter((work) => !work.portrait && !work.abstract);
+const landscapeWorks = works
+  .filter((work) => !work.portrait && !work.abstract)
+  .sort((a, b) => {
+    if (a.title === "Мотивационный подкаст") return -1;
+    if (b.title === "Мотивационный подкаст") return 1;
+    return 0;
+  });
 
 const approach = [
   ["Ритм", "Монтаж держится на темпе, паузах и точных акцентах."],
@@ -240,7 +246,7 @@ export default function R3nvioPortfolio() {
       <motion.section id="works" className="section works-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }} transition={{ staggerChildren: 0.08 }}>
         <div className="section-heading">
           <p>Работы</p>
-          <h2>Видео, монтаж и motion.</h2>
+          <h2>Избранные работы.</h2>
         </div>
         <div className="works-stack">
           <div className="works-grid portrait-grid">
