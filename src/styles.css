@@ -208,6 +208,7 @@ video {
 
 .hero-copy {
   position: relative;
+  min-width: 0;
 }
 
 .hero-copy::before {
@@ -254,6 +255,7 @@ video {
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .hero-text {
@@ -1228,6 +1230,14 @@ video {
   .site-footer {
     padding-right: 16px;
     padding-left: 16px;
+  }
+
+  .hero-copy,
+  .hero h1,
+  .hero h2,
+  .hero-text {
+    width: 100%;
+    max-width: calc(100vw - 32px);
   }
 
   .brand-symbol {
