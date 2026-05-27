@@ -6,7 +6,7 @@ const works = [
   {
     title: "match cut",
     category: "Reels / Pr + Ae",
-    description: "Dynamic vertical edit with clean match cuts, timing accents, and a Premiere Pro + After Effects workflow.",
+    description: "Динамичный вертикальный монтаж с чистыми match cut-переходами, акцентами в тайминге и workflow в Premiere Pro + After Effects.",
     video: "/portfolio/match-cut.mp4",
     portrait: true,
     accent: "blue",
