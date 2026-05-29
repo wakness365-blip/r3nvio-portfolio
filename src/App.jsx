@@ -14,7 +14,7 @@ const works = [
   {
     title: "Подкаст визуализация",
     category: "Подкаст / соцсети",
-    description: "Вертикальный подкаст-фрагмент с B-roll, субтитрами и спокойной динамикой для социальных сетей.",
+    description: "Фрагмент подкаста о том, почему нельзя пить энергетики как воду: вертикальный монтаж, крупные титры и спокойные акценты.",
     video: "/portfolio/podkast-vizualizatsiya.mp4",
     poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
     portrait: true,
