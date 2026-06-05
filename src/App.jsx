@@ -15,8 +15,8 @@ const works = [
     title: "Подкаст визуализация",
     category: "Подкаст / соцсети",
     description: "Фрагмент подкаста о том, почему нельзя пить энергетики как воду: вертикальный монтаж, крупные титры и спокойные акценты.",
-    video: "/portfolio/podkast-vizualizatsiya.mp4?v=compat-20260529",
-    poster: "/portfolio/podkast-vizualizatsiya-poster.jpg?v=compat-20260529",
+    video: "/portfolio/podkast-vizualizatsiya.mp4",
+    poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
     portrait: true,
     accent: "cyan",
   },
@@ -56,21 +56,24 @@ const works = [
   },
   {
     title: "Визуальный эксперимент",
-    category: "Тест стиля",
-    description: "Тест атмосферы, контраста, движения и визуального ритма.",
+    category: "Арт-объект",
+    description: "Чистая материя света и ритма. Цифровая скульптура, созданная только ради ощущения.",
     accent: "prism",
     abstract: true,
+    variant: "lumen",
   },
 ];
 
 const portraitWorks = works.filter((work) => work.portrait);
+const landscapeOrder = {
+  "Мотивационный подкаст": 0,
+  "Процесс монтажа UI": 1,
+  "UI motion": 2,
+  "Визуальный эксперимент": 3,
+};
 const landscapeWorks = works
-  .filter((work) => !work.portrait && !work.abstract)
-  .sort((a, b) => {
-    if (a.title === "Мотивационный подкаст") return -1;
-    if (b.title === "Мотивационный подкаст") return 1;
-    return 0;
-  });
+  .filter((work) => !work.portrait)
+  .sort((a, b) => (landscapeOrder[a.title] ?? 99) - (landscapeOrder[b.title] ?? 99));
 
 const approach = [
   ["Ритм", "Монтаж держится на темпе, паузах и точных акцентах."],
@@ -81,7 +84,7 @@ const approach = [
 
 const contacts = [
   ["Email", "mailto:r3nvio@mail.ru"],
-  ["Telegram", "https://t.me/r3nvio"],
+  ["Telegram", "https://t.me/quasar241"],
   ["VK", "https://vk.com/w3akness0"],
   ["Instagram", "https://www.instagram.com/r3nvio0"],
 ];
@@ -130,29 +133,69 @@ function LightButton({ href, children, variant = "primary" }) {
   );
 }
 
-function AbstractPreview() {
+function AbstractPreview({ variant = "lumen" }) {
+  // LUMEN — абсолютно новый художественный объект.
+  // Сложная световая скульптура. Многослойные независимые анимации с разными ритмами.
+  // Наведи — управляешь главным источником света. Наклони — 3D скульптура поворачивается.
+  // Это не просто анимация. Это цифровая световая инсталляция.
   return (
-    <div className="abstract-preview" aria-hidden="true">
-      <span className="scan-line" />
-      <span className="glass-plate one" />
-      <span className="glass-plate two" />
-      <span className="glass-plate three" />
-      <span className="motion-dot a" />
-      <span className="motion-dot b" />
-      <span className="motion-dot c" />
+    <div className="abstract-preview lumen" aria-hidden="true">
+      {/* Deep atmospheric base layers */}
+      <span className="lumen-atmosphere" />
+      <span className="lumen-veil veil1" />
+      <span className="lumen-veil veil2" />
+
+      {/* Central luminous sculpture core */}
+      <span className="lumen-core" />
+      <span className="lumen-core-ring ring1" />
+      <span className="lumen-core-ring ring2" />
+      <span className="lumen-core-ring ring3" />
+
+      {/* Light planes / blades – architectural light cuts */}
+      <span className="lumen-plane p1" />
+      <span className="lumen-plane p2" />
+      <span className="lumen-plane p3" />
+      <span className="lumen-plane p4" />
+
+      {/* Slow orbiting light halos */}
+      <span className="lumen-halo h1" />
+      <span className="lumen-halo h2" />
+
+      {/* Delicate drifting light dust / particles */}
+      <span className="lumen-dust d1" />
+      <span className="lumen-dust d2" />
+      <span className="lumen-dust d3" />
+      <span className="lumen-dust d4" />
+      <span className="lumen-dust d5" />
+
+      {/* Thin structural lines + moving highlights */}
+      <span className="lumen-strut s1" />
+      <span className="lumen-strut s2" />
+      <span className="lumen-strut s3" />
+
+      {/* Moving caustic / intersection highlights */}
+      <span className="lumen-caustic c1" />
+      <span className="lumen-caustic c2" />
+
+      {/* Extra slow ethereal outer ring for depth */}
+      <span className="lumen-outer" />
     </div>
   );
 }
 
 function WorkCard({ work, index }) {
+  const videoRef = useRef(null);
+
   function handleMove(event) {
     if (!work.abstract) return;
 
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * -5;
-    const rotateY = ((x / rect.width) - 0.5) * 5;
+    // Более драматичный tilt для «нового искусства»
+    const intensity = 9;
+    const rotateX = ((y / rect.height) - 0.5) * -intensity;
+    const rotateY = ((x / rect.width) - 0.5) * intensity;
 
     event.currentTarget.style.setProperty("--mx", `${x}px`);
     event.currentTarget.style.setProperty("--my", `${y}px`);
@@ -165,19 +208,45 @@ function WorkCard({ work, index }) {
     event.currentTarget.style.setProperty("--ry", "0deg");
   }
 
+  function handleVideoEnter() {
+    const v = videoRef.current;
+    if (v) {
+      v.muted = true;
+      v.loop = true;
+      v.play().catch(() => {});
+    }
+  }
+
+  function handleVideoLeave() {
+    const v = videoRef.current;
+    if (v) {
+      v.pause();
+    }
+  }
+
+  const isVideo = !work.abstract;
+
   return (
     <motion.article
-      className={`work-card ${!work.abstract ? "video-card" : "visual-card"} ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
+      className={`work-card ${isVideo ? "video-card" : "visual-card"} ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
       variants={reveal}
-      onMouseMove={handleMove}
-      onMouseLeave={resetTilt}
-      style={{ "--delay": `${index * 90}ms` }}
+      onMouseMove={work.abstract ? handleMove : undefined}
+      onMouseEnter={isVideo ? handleVideoEnter : undefined}
+      onMouseLeave={isVideo ? handleVideoLeave : resetTilt}
     >
       <div className="work-preview">
         {work.abstract ? (
-          <AbstractPreview />
+          <AbstractPreview variant={work.variant} />
         ) : (
-          <video src={work.video} poster={work.poster} controls playsInline preload="metadata" />
+          <video
+            ref={videoRef}
+            src={work.video}
+            poster={work.poster}
+            controls
+            playsInline
+            preload="metadata"
+            muted
+          />
         )}
       </div>
       <div className="work-info">
@@ -218,7 +287,12 @@ export default function R3nvioPortfolio() {
       </header>
 
       <section className="hero">
-        <motion.div className="hero-copy">
+        <motion.div
+          className="hero-copy"
+          initial="hidden"
+          animate="visible"
+          transition={{ staggerChildren: 0.08 }}
+        >
           <motion.p variants={reveal} className="eyebrow">Video editing / motion design / dynamic content</motion.p>
           <motion.h1 variants={reveal}>r3nvio</motion.h1>
           <motion.h2 variants={reveal}>Видеомонтаж и motion design для динамичного контента</motion.h2>
@@ -231,7 +305,14 @@ export default function R3nvioPortfolio() {
           </motion.div>
         </motion.div>
 
-        <motion.div className="hero-reel" initial={{ opacity: 0, scale: 0.94, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
+        <motion.a
+          href="#works"
+          className="hero-reel"
+          initial={{ opacity: 0, scale: 0.94, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          aria-label="Смотреть работы"
+        >
           <div className="reel-stage">
             <span className="reel-line top" />
             <span className="reel-line bottom" />
@@ -248,20 +329,24 @@ export default function R3nvioPortfolio() {
               <span />
             </div>
           </div>
-        </motion.div>
+        </motion.a>
       </section>
 
       <motion.section id="works" className="section works-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }} transition={{ staggerChildren: 0.08 }}>
         <div className="section-heading">
           <p>Работы</p>
           <h2>Избранные работы.</h2>
+          <p className="works-sub">Включая чистые световые скульптуры.</p>
         </div>
         <div className="works-stack">
+          <div className="grid-label">Вертикаль / Reels</div>
           <div className="works-grid portrait-grid">
             {portraitWorks.map((work, index) => (
               <WorkCard key={work.title} work={work} index={index} />
             ))}
           </div>
+
+          <div className="grid-label">Горизонталь / Арт</div>
           <div className="works-grid landscape-grid">
             {landscapeWorks.map((work, index) => (
               <WorkCard key={work.title} work={work} index={index} />

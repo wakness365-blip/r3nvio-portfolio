@@ -17,35 +17,37 @@ npm run dev
 http://localhost:5173
 ```
 
-## Где лежат файлы
+## Структура
 
-Логотипы:
+- `src/App.jsx` — основной компонент портфолио, массив работ `works`.
+- `src/styles.css` — все стили (тёмная тема, анимации, responsive).
+- `public/assets/` — логотипы (иконка и wordmark).
+- `public/portfolio/` — видео и постеры для работ (Reels, motion и т.д.).
 
-```text
-public/assets/
+Работы рендерятся из массива в `App.jsx`. Портретные (вертикальные) в одном гриде, горизонтальные + абстрактный эксперимент — во втором.
+
+Абстрактная карточка ("Визуальный эксперимент") использует CSS-only превью без видео.
+
+## Добавление/замена работы
+
+1. Положи видео + опционально poster.jpg в `public/portfolio/`.
+2. Добавь объект в массив `works` в `src/App.jsx`:
+   - `video`, `poster` (опц.), `portrait: true` для Reels/вертикали, `featured: true` для крупной карты.
+   - `abstract: true` для CSS-визуализации вместо видео.
+3. Сбилдь: `npm run build`.
+
+## Сборка и деплой
+
+```bash
+npm run build
 ```
 
-Видео:
+Папка `dist/` — готовая статическая сборка.
 
-```text
-public/portfolio/
-```
+Деплой на Vercel / Netlify / GitHub Pages: заливай репо, подключи — Vite build настроен.
 
-## Пути видео в коде
+## Зависимости
 
-```text
-/portfolio/podcast-ui-animation.mp4
-/portfolio/ui-ad-animation.mp4
-/portfolio/ui-sfx-animation.mp4
-```
-
-Чтобы заменить видео, просто положи новый файл в `public/portfolio/` и поменяй `videoSrc` в `src/App.jsx`.
-
-## Деплой на Vercel
-
-1. Залей проект в GitHub.
-2. Открой Vercel.
-3. New Project.
-4. Выбери репозиторий.
-5. Deploy.
+- React + Vite
+- framer-motion (скролл, анимации появления, hover tilt на абстрактной карточке)
 
