@@ -2,16 +2,15 @@ import React, { Suspense, lazy, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ProfileCard from "./components/reactbits/ProfileCard.jsx";
 import SpotlightCard from "./components/reactbits/SpotlightCard.jsx";
-import "./styles.css";
 
 const Dither = lazy(() => import("./components/Dither.jsx"));
 
 const works = [
   {
-    title: "Match Cut Reel",
-    category: "Reels / Premiere Pro / After Effects",
+    title: "Auto Reels",
+    category: "Auto / Reels / Premiere Pro",
     description:
-      "Вертикальный ролик с быстрым ритмом, точными match cut-переходами и чистой подачей без визуального шума.",
+      "Вертикальный авто-ролик с живым темпом, чистыми субтитрами и подачей, заточенной под удержание внимания в ленте.",
     video: "/portfolio/match-cut.mp4",
     poster: "/portfolio/match-cut-poster.jpg",
     portrait: true,
@@ -57,10 +56,10 @@ const works = [
     accent: "blue",
   },
   {
-    title: "Мотивационный подкаст",
+    title: "Motivational Shorts",
     category: "YouTube / Shorts",
     description:
-      "Подкаст-фрагмент с субтитрами, темпом и графикой, которая поддерживает смысл, а не отвлекает от него.",
+      "Короткий motivational edit с крупной графикой, резкими акцентами и быстрым визуальным посылом без лишнего шума.",
     video: "/portfolio/motivatsionnyy-podkast.mp4",
     poster: "/portfolio/motivatsionnyy-podkast-poster.jpg",
     accent: "silver",
