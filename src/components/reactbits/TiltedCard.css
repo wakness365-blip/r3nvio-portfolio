@@ -1,0 +1,64 @@
+.rb-tilted-card-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rb-tilted-card-mobile-alert {
+  position: absolute;
+  top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .rb-tilted-card-mobile-alert {
+    display: block;
+  }
+
+  .rb-tilted-card-caption {
+    display: none;
+  }
+}
+
+.rb-tilted-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.rb-tilted-card-img {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  border-radius: 24px;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.rb-tilted-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform: translateZ(30px);
+  will-change: transform;
+}
+
+.rb-tilted-card-caption {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #111;
+  opacity: 0;
+  z-index: 3;
+}

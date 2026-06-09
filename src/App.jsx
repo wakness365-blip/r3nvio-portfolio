@@ -1,38 +1,56 @@
-import React, { useRef } from "react";
+import React, { Suspense, lazy, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import ProfileCard from "./components/reactbits/ProfileCard.jsx";
+import SpotlightCard from "./components/reactbits/SpotlightCard.jsx";
 import "./styles.css";
+
+const Dither = lazy(() => import("./components/Dither.jsx"));
 
 const works = [
   {
-    title: "match cut",
-    category: "Reels / Pr + Ae",
-    description: "Динамичный вертикальный монтаж с чистыми match cut-переходами, акцентами в тайминге и workflow в Premiere Pro + After Effects.",
+    title: "Match Cut Reel",
+    category: "Reels / Premiere Pro / After Effects",
+    description:
+      "Вертикальный ролик с быстрым ритмом, точными match cut-переходами и чистой подачей без визуального шума.",
     video: "/portfolio/match-cut.mp4",
     portrait: true,
     accent: "blue",
   },
   {
-    title: "Подкаст визуализация",
-    category: "Подкаст / соцсети",
-    description: "Фрагмент подкаста о том, почему нельзя пить энергетики как воду: вертикальный монтаж, крупные титры и спокойные акценты.",
+    title: "Подкаст: визуализация",
+    category: "Подкаст / Shorts",
+    description:
+      "Фрагмент подкаста с крупными титрами, выразительными паузами и спокойной драматургией кадра.",
     video: "/portfolio/podkast-vizualizatsiya.mp4",
     poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
     portrait: true,
     accent: "cyan",
   },
   {
-    title: "Процесс монтажа UI",
-    category: "Motion design",
-    description: "Анимация интерфейса с акцентом на тайминг, плавность и точные микро-движения.",
+    title: "Steam Promo Reel",
+    category: "Promo / Motion",
+    description:
+      "Минималистичное промо с акцентом на свет, композицию и ощущение дорогого визуального ритма.",
+    video: "/portfolio/stim-rils.mp4",
+    poster: "/portfolio/stim-rils-poster.jpg",
+    portrait: true,
+    accent: "violet",
+  },
+  {
+    title: "UI Монтаж",
+    category: "Motion design / Interface",
+    description:
+      "Демонстрация интерфейса с упором на тайминг, микроанимации и ощущение дорогого цифрового продукта.",
     video: "/portfolio/process-montazha-ui.mp4",
     poster: "/portfolio/process-montazha-ui-poster.jpg",
     featured: true,
     accent: "cyan",
   },
   {
-    title: "UI motion",
+    title: "UI Motion Reel",
     category: "Social media edit",
-    description: "Динамичный ролик с ритмичными склейками, звуковыми акцентами и чистой подачей.",
+    description:
+      "Динамичный монтаж с ритмичными склейками, музыкальными акцентами и аккуратной архитектурой кадра.",
     video: "/portfolio/ui-motion.mp4",
     poster: "/portfolio/ui-motion-poster.jpg",
     accent: "blue",
@@ -40,66 +58,67 @@ const works = [
   {
     title: "Мотивационный подкаст",
     category: "YouTube / Shorts",
-    description: "Подкаст-фрагмент с субтитрами, темпом и минимальной графикой без визуального шума.",
+    description:
+      "Подкаст-фрагмент с субтитрами, темпом и графикой, которая поддерживает смысл, а не отвлекает от него.",
     video: "/portfolio/motivatsionnyy-podkast.mp4",
     poster: "/portfolio/motivatsionnyy-podkast-poster.jpg",
     accent: "silver",
   },
-  {
-    title: "Стим рилс",
-    category: "Promo / motion",
-    description: "Минималистичная промо-сцена с акцентом на свет, композицию и премиальный визуал.",
-    video: "/portfolio/stim-rils.mp4",
-    poster: "/portfolio/stim-rils-poster.jpg",
-    portrait: true,
-    accent: "violet",
-  },
-  {
-    title: "Визуальный эксперимент",
-    category: "Арт-объект",
-    description: "Чистая материя света и ритма. Цифровая скульптура, созданная только ради ощущения.",
-    accent: "prism",
-    abstract: true,
-    variant: "lumen",
-  },
 ];
 
 const portraitWorks = works.filter((work) => work.portrait);
-const landscapeOrder = {
-  "Мотивационный подкаст": 0,
-  "Процесс монтажа UI": 1,
-  "UI motion": 2,
-  "Визуальный эксперимент": 3,
-};
-const landscapeWorks = works
-  .filter((work) => !work.portrait)
-  .sort((a, b) => (landscapeOrder[a.title] ?? 99) - (landscapeOrder[b.title] ?? 99));
+const landscapeWorks = works.filter((work) => !work.portrait);
 
 const approach = [
-  ["Ритм", "Монтаж держится на темпе, паузах и точных акцентах."],
-  ["Звук", "SFX, музыка и голос работают вместе с движением и смыслом."],
-  ["Детали", "Микро-анимации, свет и композиция собирают кадр в цельную систему."],
-  ["Формат", "Видео должно быть чистым и понятным: от Reels до YouTube и промо."],
+  {
+    title: "Ритм",
+    text: "Монтаж держится на темпе, паузах и акцентах, которые вовремя подхватывают внимание.",
+  },
+  {
+    title: "Звук",
+    text: "SFX, музыка и голос собираются в одну драматургию, а не существуют отдельно друг от друга.",
+  },
+  {
+    title: "Детали",
+    text: "Микроанимации, свет и композиция добавляют глубину и делают даже короткий ролик собранным.",
+  },
+  {
+    title: "Формат",
+    text: "Адаптирую под YouTube, соцсети, подкасты и промо, сохраняя читаемость и характер проекта.",
+  },
 ];
 
 const contacts = [
-  ["Email", "mailto:r3nvio@mail.ru"],
-  ["Telegram", "https://t.me/quasar241"],
-  ["VK", "https://vk.com/w3akness0"],
-  ["Instagram", "https://www.instagram.com/r3nvio0"],
+  { label: "Email", value: "r3nvio@mail.ru", href: "mailto:r3nvio@mail.ru" },
+  { label: "Telegram", value: "@quasar241", href: "https://t.me/quasar241" },
+  { label: "VK", value: "w3akness0", href: "https://vk.com/w3akness0" },
+  { label: "Instagram", value: "@r3nvio0", href: "https://www.instagram.com/r3nvio0" },
 ];
 
 const logoAssets = {
   icon: "/assets/r3nvio_icon_offwhite.png",
-  wordmark: "/assets/r3nvio_wordmark_white.png",
+  portrait: "/assets/alexander-portrait-noir.png",
 };
 
+const ease = [0.16, 1, 0.3, 1];
+
 const reveal = {
-  hidden: { opacity: 0, y: 42 },
+  hidden: { opacity: 0, y: 36 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.82, ease },
+  },
+};
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 36, scale: 0.97, filter: "blur(12px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.72, ease },
   },
 };
 
@@ -108,6 +127,18 @@ function ArrowIcon() {
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M7 17 17 7M9 7h8v8" />
     </svg>
+  );
+}
+
+function AnimatedText({ text, as: Tag = "p", className = "" }) {
+  return (
+    <Tag className={`split-text ${className}`.trim()} aria-label={text}>
+      {text.split(" ").map((word, index) => (
+        <span className="split-word-wrap" key={`${word}-${index}`} style={{ "--word-delay": `${index * 70}ms` }}>
+          <span className="split-word">{word}&nbsp;</span>
+        </span>
+      ))}
+    </Tag>
   );
 }
 
@@ -123,131 +154,49 @@ function BrandMark({ compact = false }) {
 }
 
 function LightButton({ href, children, variant = "primary" }) {
-  const external = href.startsWith("http");
+  const opensNewTab = href.startsWith("http");
 
   return (
-    <a className={`light-button ${variant}`} href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>
+    <a
+      className={`light-button ${variant}`}
+      href={href}
+      target={opensNewTab ? "_blank" : undefined}
+      rel={opensNewTab ? "noreferrer" : undefined}
+    >
       <span>{children}</span>
       <ArrowIcon />
     </a>
   );
 }
 
-function AbstractPreview({ variant = "lumen" }) {
-  // LUMEN — абсолютно новый художественный объект.
-  // Сложная световая скульптура. Многослойные независимые анимации с разными ритмами.
-  // Наведи — управляешь главным источником света. Наклони — 3D скульптура поворачивается.
-  // Это не просто анимация. Это цифровая световая инсталляция.
-  return (
-    <div className="abstract-preview lumen" aria-hidden="true">
-      {/* Deep atmospheric base layers */}
-      <span className="lumen-atmosphere" />
-      <span className="lumen-veil veil1" />
-      <span className="lumen-veil veil2" />
-
-      {/* Central luminous sculpture core */}
-      <span className="lumen-core" />
-      <span className="lumen-core-ring ring1" />
-      <span className="lumen-core-ring ring2" />
-      <span className="lumen-core-ring ring3" />
-
-      {/* Light planes / blades – architectural light cuts */}
-      <span className="lumen-plane p1" />
-      <span className="lumen-plane p2" />
-      <span className="lumen-plane p3" />
-      <span className="lumen-plane p4" />
-
-      {/* Slow orbiting light halos */}
-      <span className="lumen-halo h1" />
-      <span className="lumen-halo h2" />
-
-      {/* Delicate drifting light dust / particles */}
-      <span className="lumen-dust d1" />
-      <span className="lumen-dust d2" />
-      <span className="lumen-dust d3" />
-      <span className="lumen-dust d4" />
-      <span className="lumen-dust d5" />
-
-      {/* Thin structural lines + moving highlights */}
-      <span className="lumen-strut s1" />
-      <span className="lumen-strut s2" />
-      <span className="lumen-strut s3" />
-
-      {/* Moving caustic / intersection highlights */}
-      <span className="lumen-caustic c1" />
-      <span className="lumen-caustic c2" />
-
-      {/* Extra slow ethereal outer ring for depth */}
-      <span className="lumen-outer" />
-    </div>
-  );
-}
-
-function WorkCard({ work, index }) {
+function WorkCard({ work }) {
   const videoRef = useRef(null);
 
-  function handleMove(event) {
-    if (!work.abstract) return;
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    // Более драматичный tilt для «нового искусства»
-    const intensity = 9;
-    const rotateX = ((y / rect.height) - 0.5) * -intensity;
-    const rotateY = ((x / rect.width) - 0.5) * intensity;
-
-    event.currentTarget.style.setProperty("--mx", `${x}px`);
-    event.currentTarget.style.setProperty("--my", `${y}px`);
-    event.currentTarget.style.setProperty("--rx", `${rotateX}deg`);
-    event.currentTarget.style.setProperty("--ry", `${rotateY}deg`);
-  }
-
-  function resetTilt(event) {
-    event.currentTarget.style.setProperty("--rx", "0deg");
-    event.currentTarget.style.setProperty("--ry", "0deg");
-  }
-
   function handleVideoEnter() {
-    const v = videoRef.current;
-    if (v) {
-      v.muted = true;
-      v.loop = true;
-      v.play().catch(() => {});
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.loop = true;
+    video.play().catch(() => {});
   }
 
   function handleVideoLeave() {
-    const v = videoRef.current;
-    if (v) {
-      v.pause();
-    }
-  }
+    const video = videoRef.current;
+    if (!video) return;
 
-  const isVideo = !work.abstract;
+    video.pause();
+  }
 
   return (
     <motion.article
-      className={`work-card ${isVideo ? "video-card" : "visual-card"} ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
-      variants={reveal}
-      onMouseMove={work.abstract ? handleMove : undefined}
-      onMouseEnter={isVideo ? handleVideoEnter : undefined}
-      onMouseLeave={isVideo ? handleVideoLeave : resetTilt}
+      className={`work-card video-card ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
+      variants={cardReveal}
+      onMouseEnter={handleVideoEnter}
+      onMouseLeave={handleVideoLeave}
     >
       <div className="work-preview">
-        {work.abstract ? (
-          <AbstractPreview variant={work.variant} />
-        ) : (
-          <video
-            ref={videoRef}
-            src={work.video}
-            poster={work.poster}
-            controls
-            playsInline
-            preload="metadata"
-            muted
-          />
-        )}
+        <video ref={videoRef} src={work.video} poster={work.poster} controls playsInline preload="metadata" muted />
       </div>
       <div className="work-info">
         <p>{work.category}</p>
@@ -269,8 +218,28 @@ export default function R3nvioPortfolio() {
     pageRef.current.style.setProperty("--cursor-y", `${event.clientY}px`);
   }
 
+  function scrollToContacts() {
+    document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
-    <main id="top" className="page" ref={pageRef} onPointerMove={handlePointerMove}>
+    <main id="top" className="page page-noir" ref={pageRef} onPointerMove={handlePointerMove}>
+      <div className="page-background" aria-hidden="true">
+        <Suspense fallback={null}>
+          <Dither
+            colorNum={4}
+            disableAnimation={false}
+            enableMouseInteraction
+            mouseRadius={0.22}
+            pixelSize={3}
+            waveAmplitude={0.38}
+            waveColor={[0.4862745098, 0.1803921569, 0.1803921569]}
+            waveFrequency={2.2}
+            waveSpeed={0.035}
+          />
+        </Suspense>
+      </div>
+
       <motion.div className="scroll-bar" style={{ scaleX: scrollYProgress }} />
       <motion.div className="scene-light" style={{ y: lightY }} />
       <div className="grain" />
@@ -293,15 +262,25 @@ export default function R3nvioPortfolio() {
           animate="visible"
           transition={{ staggerChildren: 0.08 }}
         >
-          <motion.p variants={reveal} className="eyebrow">Video editing / motion design / dynamic content</motion.p>
+          <motion.p variants={reveal} className="eyebrow">
+            Video editing / motion design / cinematic cuts
+          </motion.p>
           <motion.h1 variants={reveal}>r3nvio</motion.h1>
-          <motion.h2 variants={reveal}>Видеомонтаж и motion design для динамичного контента</motion.h2>
+          <motion.div variants={reveal}>
+            <AnimatedText
+              as="h2"
+              className="hero-title"
+              text="Видеомонтаж и motion design для контента, который держит внимание с первого кадра."
+            />
+          </motion.div>
           <motion.p variants={reveal} className="hero-text">
-            Создаю ролики для YouTube, соцсетей, промо и коротких форматов, где монтаж, звук и движение работают как единая система.
+            Собираю ролики для YouTube, соцсетей, промо и подкастов: ритм, звук, свет и чистая графика работают как одна система.
           </motion.p>
           <motion.div variants={reveal} className="hero-actions">
             <LightButton href="#works">Смотреть работы</LightButton>
-            <LightButton href="#contacts" variant="ghost">Связаться</LightButton>
+            <LightButton href="#contacts" variant="ghost">
+              Связаться
+            </LightButton>
           </motion.div>
         </motion.div>
 
@@ -310,7 +289,7 @@ export default function R3nvioPortfolio() {
           className="hero-reel"
           initial={{ opacity: 0, scale: 0.94, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, ease }}
           aria-label="Смотреть работы"
         >
           <div className="reel-stage">
@@ -332,80 +311,133 @@ export default function R3nvioPortfolio() {
         </motion.a>
       </section>
 
-      <motion.section id="works" className="section works-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }} transition={{ staggerChildren: 0.08 }}>
-        <div className="section-heading">
+      <motion.section
+        id="works"
+        className="section works-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ staggerChildren: 0.08 }}
+      >
+        <motion.div className="section-heading" variants={reveal}>
           <p>Работы</p>
-          <h2>Избранные работы.</h2>
-          <p className="works-sub">Включая чистые световые скульптуры.</p>
-        </div>
+          <AnimatedText as="h2" text="Избранные ролики с чистым монтажом, ритмом и вниманием к подаче." />
+        </motion.div>
+
         <div className="works-stack">
-          <div className="grid-label">Вертикаль / Reels</div>
-          <div className="works-grid portrait-grid">
-            {portraitWorks.map((work, index) => (
-              <WorkCard key={work.title} work={work} index={index} />
-            ))}
-          </div>
-
-          <div className="grid-label">Горизонталь / Арт</div>
-          <div className="works-grid landscape-grid">
-            {landscapeWorks.map((work, index) => (
-              <WorkCard key={work.title} work={work} index={index} />
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section id="about" className="section about-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
-        <motion.div className="about-copy" variants={reveal}>
-          <p className="section-kicker">О себе</p>
-          <h2>Ритм, свет и чистая подача вместо визуального шума.</h2>
-          <p>
-            Меня зовут Александр, я работаю под брендом R3NVIO. Занимаюсь видеомонтажом, motion design и визуальной подачей динамичного контента: YouTube, соцсети, промо, подкасты и короткие форматы.
-          </p>
-        </motion.div>
-        <motion.div className="portrait-placeholder" variants={reveal}>
-          <div className="brand-plate">
-            <span className="brand-plate-label">Brand system</span>
-            <img className="brand-plate-icon" src={logoAssets.icon} alt="" />
-            <img className="portrait-logo" src={logoAssets.wordmark} alt="r3nvio" />
-            <div className="brand-plate-lines" aria-hidden="true">
-              <span />
-              <span />
-              <span />
+          <motion.div className="grid-group" variants={reveal}>
+            <div className="grid-label">Вертикаль / Reels</div>
+            <div className="works-grid portrait-grid">
+              {portraitWorks.map((work) => (
+                <WorkCard key={work.title} work={work} />
+              ))}
             </div>
-          </div>
+          </motion.div>
+
+          <motion.div className="grid-group" variants={reveal}>
+            <div className="grid-label">Горизонталь / Motion</div>
+            <div className="works-grid landscape-grid">
+              {landscapeWorks.map((work) => (
+                <WorkCard key={work.title} work={work} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="about"
+        className="section about-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.22 }}
+        transition={{ staggerChildren: 0.1 }}
+      >
+        <motion.div className="about-copy-shell" variants={reveal}>
+          <SpotlightCard className="about-copy about-copy-noir" spotlightColor="rgba(176, 191, 226, 0.12)">
+            <p className="section-kicker">О себе</p>
+            <AnimatedText
+              as="h2"
+              text="Ритм, свет и чистая подача вместо визуального шума."
+            />
+            <p className="about-lead">
+              Меня зовут Александр, я работаю под брендом R3NVIO. Занимаюсь видеомонтажом, motion design и визуальной подачей динамичного контента для YouTube, соцсетей, промо и подкастов.
+            </p>
+            <p className="about-secondary">
+              Для меня хороший ролик начинается не с эффекта, а с ощущения: где сделать паузу, когда усилить звук, как дать кадру воздух и оставить зрителю только главное.
+            </p>
+          </SpotlightCard>
+        </motion.div>
+
+        <motion.div className="portrait-placeholder" variants={cardReveal}>
+          <ProfileCard
+            avatarUrl={logoAssets.portrait}
+            iconUrl={logoAssets.icon}
+            name="Александр"
+            title="Видео-монтаж / Motion design / Visual storytelling"
+            handle="r3nvio"
+            status="Открыт к проектам"
+            contactText="Написать"
+            onContactClick={scrollToContacts}
+            enableTilt
+            innerGradient="linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015) 24%, rgba(10,9,8,0.82) 100%)"
+          />
         </motion.div>
       </motion.section>
 
-      <motion.section id="approach" className="section approach-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }} transition={{ staggerChildren: 0.08 }}>
-        <div className="section-heading compact-heading">
+      <motion.section
+        id="approach"
+        className="section approach-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ staggerChildren: 0.08 }}
+      >
+        <motion.div className="section-heading compact-heading" variants={reveal}>
           <p>Подход</p>
-          <h2>Коротко о том, на чем держится сильное видео.</h2>
-        </div>
+          <AnimatedText as="h2" text="Коротко о том, на чем держится сильное и читаемое видео." />
+        </motion.div>
         <div className="approach-grid">
-          {approach.map(([title, text], index) => (
-            <motion.article className="approach-card" variants={reveal} key={title}>
+          {approach.map((item, index) => (
+            <motion.article className="approach-card" variants={cardReveal} key={item.title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
             </motion.article>
           ))}
         </div>
       </motion.section>
 
-      <motion.section id="contacts" className="section contacts-section" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <motion.div className="contacts-panel" variants={reveal}>
-          <div>
-            <p className="section-kicker">Контакты</p>
-            <h2>Открыт к проектам по видеомонтажу, motion design, YouTube, соцсетям и промо.</h2>
-          </div>
-          <div className="contacts-list">
-            {contacts.map(([label, href]) => (
-              <a className="contact-link" href={href} key={label} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
-                <strong>{label}</strong>
-              </a>
-            ))}
-          </div>
+      <motion.section
+        id="contacts"
+        className="section contacts-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <motion.div variants={reveal}>
+          <SpotlightCard className="contacts-panel contacts-panel-noir" spotlightColor="rgba(176, 191, 226, 0.1)">
+            <div>
+              <p className="section-kicker">Контакты</p>
+              <AnimatedText
+                as="h2"
+                text="Открыт к проектам по видеомонтажу, motion design, YouTube, соцсетям и промо."
+              />
+            </div>
+            <div className="contacts-list">
+              {contacts.map((contact) => (
+                <a
+                  className="contact-link"
+                  href={contact.href}
+                  key={contact.label}
+                  target={contact.href.startsWith("http") ? "_blank" : undefined}
+                  rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
+                >
+                  <strong>{contact.label}</strong>
+                </a>
+              ))}
+            </div>
+          </SpotlightCard>
         </motion.div>
       </motion.section>
 
