@@ -13,6 +13,7 @@ const works = [
     description:
       "Вертикальный ролик с быстрым ритмом, точными match cut-переходами и чистой подачей без визуального шума.",
     video: "/portfolio/match-cut.mp4",
+    poster: "/portfolio/match-cut-poster.jpg",
     portrait: true,
     accent: "blue",
   },
