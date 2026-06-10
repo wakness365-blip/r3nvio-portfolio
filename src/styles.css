@@ -4,20 +4,20 @@
 
 :root {
   color-scheme: dark;
-  --black: #0d0c0a;
-  --ink: #141210;
-  --panel: rgba(17, 14, 12, 0.93);
-  --panel-strong: rgba(22, 18, 15, 0.98);
+  --black: #050608;
+  --ink: #0c1017;
+  --panel: rgba(10, 14, 20, 0.93);
+  --panel-strong: rgba(12, 18, 27, 0.98);
   --line: rgba(245, 240, 230, 0.2);
   --line-strong: rgba(245, 240, 230, 0.36);
   --text: #f6f1e8;
   --muted: rgba(246, 241, 232, 0.8);
   --quiet: rgba(246, 241, 232, 0.58);
-  --gold: #c9a85c;
-  --gold-soft: rgba(201, 168, 92, 0.28);
-  --crimson: #7c2e2e;
+  --gold: #9ebff3;
+  --gold-soft: rgba(158, 191, 243, 0.28);
+  --crimson: #476091;
   --teal: #1e7a6d;
-  --warm: #ead8bc;
+  --warm: #eef4ff;
   --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -50,9 +50,9 @@ video {
   min-height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 100% 70% at 50% 10%, rgba(201, 168, 92, 0.08), transparent 58%),
-    radial-gradient(ellipse 72% 64% at 84% 82%, rgba(124, 46, 46, 0.09), transparent 64%),
-    linear-gradient(180deg, rgba(13, 12, 10, 0.8), rgba(13, 12, 10, 0.96));
+    radial-gradient(ellipse 92% 68% at 50% 6%, rgba(176, 191, 226, 0.12), transparent 58%),
+    radial-gradient(ellipse 70% 62% at 84% 84%, rgba(71, 96, 145, 0.14), transparent 64%),
+    linear-gradient(180deg, rgba(5, 6, 8, 0.92), rgba(7, 10, 14, 0.98));
 }
 
 .page-background,
@@ -80,8 +80,8 @@ video {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 48% 14%, rgba(201, 168, 92, 0.12), transparent 30rem),
-    linear-gradient(180deg, rgba(9, 8, 7, 0.08), rgba(9, 8, 7, 0.34));
+    radial-gradient(circle at 48% 14%, rgba(176, 191, 226, 0.12), transparent 30rem),
+    linear-gradient(180deg, rgba(6, 8, 12, 0.08), rgba(6, 8, 12, 0.34));
   mix-blend-mode: screen;
 }
 
@@ -105,9 +105,9 @@ video {
   z-index: 1;
   opacity: 0.7;
   background:
-    linear-gradient(122deg, transparent 8%, rgba(201, 168, 92, 0.09) 18%, transparent 36%),
-    radial-gradient(ellipse at 54% 14%, rgba(201, 168, 92, 0.08), transparent 40%),
-    radial-gradient(ellipse at 52% 92%, rgba(124, 46, 46, 0.08), transparent 42%);
+    linear-gradient(122deg, transparent 8%, rgba(176, 191, 226, 0.12) 18%, transparent 36%),
+    radial-gradient(ellipse at 54% 14%, rgba(158, 191, 243, 0.1), transparent 40%),
+    radial-gradient(ellipse at 52% 92%, rgba(71, 96, 145, 0.1), transparent 42%);
   filter: blur(2px);
 }
 
@@ -160,7 +160,7 @@ video {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     0 18px 44px rgba(0, 0, 0, 0.34),
-    0 0 0 1px rgba(201, 168, 92, 0.08);
+    0 0 0 1px rgba(158, 191, 243, 0.12);
 }
 
 .brand-symbol img {
@@ -267,7 +267,7 @@ video {
   text-transform: lowercase;
   text-shadow:
     0 0 28px rgba(255, 255, 255, 0.18),
-    0 28px 120px rgba(201, 168, 92, 0.08);
+    0 28px 120px rgba(158, 191, 243, 0.1);
 }
 
 .hero-title,
@@ -502,7 +502,7 @@ video {
   border-radius: 38px;
   background:
     radial-gradient(circle at 38% 24%, rgba(255, 255, 255, 0.24), transparent 32%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(201, 168, 92, 0.06) 45%, rgba(124, 46, 46, 0.08));
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(158, 191, 243, 0.08) 45%, rgba(71, 96, 145, 0.08));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     0 0 68px rgba(255, 255, 255, 0.08),
@@ -530,7 +530,7 @@ video {
 
 .core-ring.second {
   inset: 24px -38px;
-  border-color: rgba(201, 168, 92, 0.28);
+  border-color: rgba(158, 191, 243, 0.32);
   animation-duration: 24s;
   animation-direction: reverse;
 }
@@ -554,7 +554,7 @@ video {
 .timeline span {
   height: 8px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.86), rgba(201, 168, 92, 0.46));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.86), rgba(158, 191, 243, 0.52));
 }
 
 .timeline span:nth-child(even) {
@@ -652,7 +652,7 @@ video {
   position: absolute;
   inset: auto 16px 0;
   height: 80px;
-  background: radial-gradient(circle at center, var(--accent-local, rgba(201, 168, 92, 0.22)), transparent 72%);
+  background: radial-gradient(circle at center, var(--accent-local, rgba(158, 191, 243, 0.22)), transparent 72%);
   opacity: 0.18;
   filter: blur(24px);
   pointer-events: none;
@@ -735,19 +735,19 @@ video {
 }
 
 .accent-cyan {
-  --accent-local: rgba(30, 122, 109, 0.42);
+  --accent-local: rgba(58, 171, 175, 0.42);
 }
 
 .accent-blue {
-  --accent-local: rgba(201, 168, 92, 0.42);
+  --accent-local: rgba(158, 191, 243, 0.42);
 }
 
 .accent-violet {
-  --accent-local: rgba(124, 46, 46, 0.42);
+  --accent-local: rgba(122, 126, 214, 0.42);
 }
 
 .accent-silver {
-  --accent-local: rgba(234, 216, 188, 0.34);
+  --accent-local: rgba(208, 220, 244, 0.34);
 }
 
 .about-section {
