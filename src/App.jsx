@@ -170,81 +170,15 @@ function LightButton({ href, children, variant = "primary" }) {
 }
 
 function WorkCard({ work }) {
-  const videoRef = useRef(null);
-  const isPreviewingRef = useRef(false);
-  const isManualPlaybackRef = useRef(false);
-
-  function handleVideoEnter() {
-    const video = videoRef.current;
-    if (!video || isManualPlaybackRef.current) return;
-
-    isPreviewingRef.current = true;
-    video.muted = true;
-    video.loop = true;
-    video.play().catch(() => {
-      isPreviewingRef.current = false;
-    });
-  }
-
-  function handleVideoLeave() {
-    const video = videoRef.current;
-    if (!video || isManualPlaybackRef.current) return;
-
-    isPreviewingRef.current = false;
-    video.pause();
-    video.currentTime = 0;
-  }
-
-  function handleManualPlaybackIntent() {
-    const video = videoRef.current;
-    if (!video) return;
-
-    isManualPlaybackRef.current = true;
-    isPreviewingRef.current = false;
-    video.muted = false;
-    video.loop = false;
-  }
-
-  function handleVideoPause() {
-    if (isPreviewingRef.current) return;
-
-    isManualPlaybackRef.current = false;
-  }
-
-  function handleVideoEnded() {
-    isManualPlaybackRef.current = false;
-  }
-
-  function handleVideoVolumeChange() {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (!video.muted && video.volume > 0) {
-      isManualPlaybackRef.current = true;
-      isPreviewingRef.current = false;
-      video.loop = false;
-    }
-  }
-
   return (
-    <motion.article
-      className={`work-card video-card ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`}
-      variants={cardReveal}
-      onMouseEnter={handleVideoEnter}
-      onMouseLeave={handleVideoLeave}
-    >
+    <motion.article className={`work-card video-card ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`} variants={cardReveal}>
       <div className="work-preview">
         <video
-          ref={videoRef}
           src={work.video}
           poster={work.poster}
           controls
           playsInline
           preload="metadata"
-          onPointerDownCapture={handleManualPlaybackIntent}
-          onPause={handleVideoPause}
-          onEnded={handleVideoEnded}
-          onVolumeChange={handleVideoVolumeChange}
         />
       </div>
       <div className="work-info">
@@ -282,7 +216,7 @@ export default function R3nvioPortfolio() {
             mouseRadius={0.22}
             pixelSize={3}
             waveAmplitude={0.38}
-            waveColor={[0.2862745098, 0.3921568627, 0.6235294118]}
+            waveColor={[0.4862745098, 0.1803921569, 0.1803921569]}
             waveFrequency={2.2}
             waveSpeed={0.035}
           />
