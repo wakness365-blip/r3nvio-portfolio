@@ -27,7 +27,7 @@ const works = [
     accent: "cyan",
   },
   {
-    title: "Steam Promo Reel",
+    title: "Steam Reels",
     category: "Promo / Motion",
     description:
       "Минималистичное промо с акцентом на свет, композицию и ощущение дорогого визуального ритма.",
@@ -47,7 +47,7 @@ const works = [
     accent: "cyan",
   },
   {
-    title: "UI Motion Reel",
+    title: "UI animation",
     category: "Social media edit",
     description:
       "Динамичный монтаж с ритмичными склейками, музыкальными акцентами и аккуратной архитектурой кадра.",
