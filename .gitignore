@@ -2,3 +2,8 @@ node_modules
 dist
 .env
 .DS_Store
+.playwright-mcp
+output
+preview-session.log
+vite-dev.err.log
+vite-dev.out.log

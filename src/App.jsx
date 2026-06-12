@@ -1,9 +1,7 @@
-import React, { Suspense, lazy, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ProfileCard from "./components/reactbits/ProfileCard.jsx";
 import SpotlightCard from "./components/reactbits/SpotlightCard.jsx";
-
-const Dither = lazy(() => import("./components/Dither.jsx"));
 
 const works = [
   {
@@ -122,6 +120,17 @@ const cardReveal = {
   },
 };
 
+const SLOW_CONNECTION_TYPES = new Set(["slow-2g", "2g"]);
+const VIDEO_WARMUP_ROOT_MARGIN = "240px 0px";
+function isDataSaverEnabled() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  const connection = navigator.connection;
+  return Boolean(connection?.saveData) || SLOW_CONNECTION_TYPES.has(connection?.effectiveType ?? "");
+}
+
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -169,18 +178,149 @@ function LightButton({ href, children, variant = "primary" }) {
   );
 }
 
+function PortfolioVideo({ work }) {
+  const previewRef = useRef(null);
+  const videoRef = useRef(null);
+  const playIntentRef = useRef(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [isActivated, setIsActivated] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [videoInstanceKey, setVideoInstanceKey] = useState(0);
+
+  useEffect(() => {
+    if (shouldLoadVideo || isDataSaverEnabled()) {
+      return undefined;
+    }
+
+    const node = previewRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setShouldLoadVideo(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) {
+          return;
+        }
+
+        setShouldLoadVideo(true);
+        observer.disconnect();
+      },
+      { rootMargin: VIDEO_WARMUP_ROOT_MARGIN },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [shouldLoadVideo]);
+
+  useEffect(() => {
+    if (!isActivated || !isReady || !playIntentRef.current || !videoRef.current) {
+      return;
+    }
+
+    const video = videoRef.current;
+
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch {
+        // Native controls stay available if autoplay is blocked after the source loads.
+      } finally {
+        playIntentRef.current = false;
+      }
+    };
+
+    playVideo();
+  }, [isActivated, isReady, videoInstanceKey]);
+
+  function activateVideo() {
+    playIntentRef.current = true;
+    setHasError(false);
+    setIsReady(false);
+    setIsActivated(true);
+    setShouldLoadVideo(true);
+  }
+
+  function retryVideo() {
+    playIntentRef.current = true;
+    setHasError(false);
+    setIsReady(false);
+    setIsActivated(true);
+    setShouldLoadVideo(true);
+    setVideoInstanceKey((currentKey) => currentKey + 1);
+  }
+
+  function handleVideoReady() {
+    setIsReady(true);
+  }
+
+  function handleVideoError() {
+    playIntentRef.current = false;
+    setHasError(true);
+    setIsReady(false);
+  }
+
+  return (
+    <div className="work-preview" ref={previewRef}>
+      <video
+        key={`${work.video}-${videoInstanceKey}`}
+        ref={videoRef}
+        src={shouldLoadVideo ? work.video : undefined}
+        poster={work.poster}
+        controls={isActivated && !hasError}
+        playsInline
+        preload={isActivated ? "auto" : "metadata"}
+        onCanPlay={handleVideoReady}
+        onLoadedData={handleVideoReady}
+        onError={handleVideoError}
+      />
+
+      {!isActivated && (
+        <button
+          type="button"
+          className="video-overlay-button"
+          onClick={activateVideo}
+          aria-label={`Открыть видео ${work.title}`}
+        >
+          <span className="video-overlay-icon" aria-hidden="true">
+            ►
+          </span>
+          <span>Открыть видео</span>
+          <small>Загружается только по клику, чтобы не перегружать страницу.</small>
+        </button>
+      )}
+
+      {isActivated && !isReady && !hasError && (
+        <div className="video-status-overlay" aria-live="polite">
+          <strong>Подгружаю видео…</strong>
+          <span>Обычно это быстрее, потому что остальные ролики не тянут сеть одновременно.</span>
+        </div>
+      )}
+
+      {hasError && (
+        <div className="video-status-overlay is-error" role="alert">
+          <strong>Видео не загрузилось с первого раза.</strong>
+          <span>Можно повторить попытку или открыть файл напрямую в новой вкладке.</span>
+          <div className="video-status-actions">
+            <button type="button" className="video-inline-action" onClick={retryVideo}>
+              Повторить
+            </button>
+            <a className="video-inline-action secondary" href={work.video} target="_blank" rel="noreferrer">
+              Открыть файл
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function WorkCard({ work }) {
   return (
     <motion.article className={`work-card video-card ${work.featured ? "featured" : ""} ${work.portrait ? "portrait" : ""} accent-${work.accent}`} variants={cardReveal}>
-      <div className="work-preview">
-        <video
-          src={work.video}
-          poster={work.poster}
-          controls
-          playsInline
-          preload="metadata"
-        />
-      </div>
+      <PortfolioVideo work={work} />
       <div className="work-info">
         <p>{work.category}</p>
         <h3>{work.title}</h3>
@@ -192,13 +332,36 @@ function WorkCard({ work }) {
 
 export default function R3nvioPortfolio() {
   const pageRef = useRef(null);
+  const pointerRef = useRef({ x: 0, y: 0 });
+  const cursorFrameRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const lightY = useTransform(scrollYProgress, [0, 1], [0, -220]);
 
+  useEffect(() => {
+    return () => {
+      if (cursorFrameRef.current !== null) {
+        window.cancelAnimationFrame(cursorFrameRef.current);
+      }
+    };
+  }, []);
+
   function handlePointerMove(event) {
     if (!pageRef.current) return;
-    pageRef.current.style.setProperty("--cursor-x", `${event.clientX}px`);
-    pageRef.current.style.setProperty("--cursor-y", `${event.clientY}px`);
+
+    pointerRef.current = { x: event.clientX, y: event.clientY };
+    if (cursorFrameRef.current !== null) {
+      return;
+    }
+
+    cursorFrameRef.current = window.requestAnimationFrame(() => {
+      cursorFrameRef.current = null;
+      if (!pageRef.current) {
+        return;
+      }
+
+      pageRef.current.style.setProperty("--cursor-x", `${pointerRef.current.x}px`);
+      pageRef.current.style.setProperty("--cursor-y", `${pointerRef.current.y}px`);
+    });
   }
 
   function scrollToContacts() {
@@ -207,21 +370,7 @@ export default function R3nvioPortfolio() {
 
   return (
     <main id="top" className="page page-noir" ref={pageRef} onPointerMove={handlePointerMove}>
-      <div className="page-background" aria-hidden="true">
-        <Suspense fallback={null}>
-          <Dither
-            colorNum={4}
-            disableAnimation={false}
-            enableMouseInteraction
-            mouseRadius={0.22}
-            pixelSize={3}
-            waveAmplitude={0.38}
-            waveColor={[0.4862745098, 0.1803921569, 0.1803921569]}
-            waveFrequency={2.2}
-            waveSpeed={0.035}
-          />
-        </Suspense>
-      </div>
+      <div className="page-background" aria-hidden="true" />
 
       <motion.div className="scroll-bar" style={{ scaleX: scrollYProgress }} />
       <motion.div className="scene-light" style={{ y: lightY }} />
