@@ -95,7 +95,7 @@ const contacts = [
 
 const logoAssets = {
   icon: "/assets/r3nvio_icon_offwhite.png",
-  portrait: "/assets/alexander-portrait-studio.png",
+  portrait: "/assets/alexander-portrait-card-dark.png",
 };
 
 const ease = [0.16, 1, 0.3, 1];
@@ -512,7 +512,6 @@ export default function R3nvioPortfolio() {
             contactText="Написать"
             onContactClick={scrollToContacts}
             enableTilt
-            portraitMode="studio"
             innerGradient="linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015) 24%, rgba(10,9,8,0.82) 100%)"
           />
         </motion.div>
