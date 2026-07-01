@@ -13,6 +13,7 @@ export default function ProfileCard({
   className = "",
   enableTilt = true,
   behindGlowEnabled = true,
+  portraitMode = "cover",
   innerGradient = "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 38%, rgba(8,8,8,0.72) 100%)",
 }) {
   const wrapperRef = useRef(null);
@@ -134,7 +135,10 @@ export default function ProfileCard({
             <span className="profile-card-status">{status}</span>
           </div>
 
-          <div className="profile-card-portrait" aria-hidden="true">
+          <div
+            className={`profile-card-portrait ${portraitMode === "studio" ? "is-studio" : ""}`.trim()}
+            aria-hidden="true"
+          >
             <span className="profile-card-frame" />
             <span className="profile-card-icon" />
             <span className="profile-card-serial">01</span>
