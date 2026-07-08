@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ProfileCard from "./components/reactbits/ProfileCard.jsx";
 import SpotlightCard from "./components/reactbits/SpotlightCard.jsx";
 
 const works = [
   {
-    title: "Auto Reels",
+    title: "Экспертный Reels / ремонт в Дубае",
     category: "Auto / Reels / Premiere Pro",
     description:
-      "Вертикальный авто-ролик с живым темпом, чистыми субтитрами и подачей, заточенной под удержание внимания в ленте.",
+      "динамичная нарезка/B-roll/субтитры с акцентами/трекинг текста/SFX и работа с музыкой/цветокор/финальная сборка",
     video: "/portfolio/match-cut.mp4",
     poster: "/portfolio/match-cut-poster.jpg",
     portrait: true,
     accent: "blue",
   },
   {
-    title: "Подкаст: визуализация",
+    title: "Динамичный подкаст / Reels про энергетики.",
     category: "Подкаст / Shorts",
     description:
-      "Фрагмент подкаста с крупными титрами, выразительными паузами и спокойной драматургией кадра.",
+      "нарезка по темпу/динамичные субтитры/B-roll/анимации + 3D/SFX и работа с музыкой/финальная сборка",
     video: "/portfolio/podkast-vizualizatsiya.mp4",
     poster: "/portfolio/podkast-vizualizatsiya-poster.jpg",
     portrait: true,
@@ -120,17 +120,6 @@ const cardReveal = {
   },
 };
 
-const SLOW_CONNECTION_TYPES = new Set(["slow-2g", "2g"]);
-const VIDEO_WARMUP_ROOT_MARGIN = "240px 0px";
-function isDataSaverEnabled() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  const connection = navigator.connection;
-  return Boolean(connection?.saveData) || SLOW_CONNECTION_TYPES.has(connection?.effectiveType ?? "");
-}
-
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -179,140 +168,15 @@ function LightButton({ href, children, variant = "primary" }) {
 }
 
 function PortfolioVideo({ work }) {
-  const previewRef = useRef(null);
-  const videoRef = useRef(null);
-  const playIntentRef = useRef(false);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
-  const [isActivated, setIsActivated] = useState(false);
-  const [isReady, setIsReady] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [videoInstanceKey, setVideoInstanceKey] = useState(0);
-
-  useEffect(() => {
-    if (shouldLoadVideo || isDataSaverEnabled()) {
-      return undefined;
-    }
-
-    const node = previewRef.current;
-    if (!node || typeof IntersectionObserver === "undefined") {
-      setShouldLoadVideo(true);
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) {
-          return;
-        }
-
-        setShouldLoadVideo(true);
-        observer.disconnect();
-      },
-      { rootMargin: VIDEO_WARMUP_ROOT_MARGIN },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [shouldLoadVideo]);
-
-  useEffect(() => {
-    if (!isActivated || !isReady || !playIntentRef.current || !videoRef.current) {
-      return;
-    }
-
-    const video = videoRef.current;
-
-    const playVideo = async () => {
-      try {
-        await video.play();
-      } catch {
-        // Native controls stay available if autoplay is blocked after the source loads.
-      } finally {
-        playIntentRef.current = false;
-      }
-    };
-
-    playVideo();
-  }, [isActivated, isReady, videoInstanceKey]);
-
-  function activateVideo() {
-    playIntentRef.current = true;
-    setHasError(false);
-    setIsReady(false);
-    setIsActivated(true);
-    setShouldLoadVideo(true);
-  }
-
-  function retryVideo() {
-    playIntentRef.current = true;
-    setHasError(false);
-    setIsReady(false);
-    setIsActivated(true);
-    setShouldLoadVideo(true);
-    setVideoInstanceKey((currentKey) => currentKey + 1);
-  }
-
-  function handleVideoReady() {
-    setIsReady(true);
-  }
-
-  function handleVideoError() {
-    playIntentRef.current = false;
-    setHasError(true);
-    setIsReady(false);
-  }
-
   return (
-    <div className="work-preview" ref={previewRef}>
+    <div className="work-preview">
       <video
-        key={`${work.video}-${videoInstanceKey}`}
-        ref={videoRef}
-        src={shouldLoadVideo ? work.video : undefined}
+        src={work.video}
         poster={work.poster}
-        controls={isActivated && !hasError}
+        controls
         playsInline
-        preload={isActivated ? "auto" : "metadata"}
-        onCanPlay={handleVideoReady}
-        onLoadedData={handleVideoReady}
-        onError={handleVideoError}
+        preload="metadata"
       />
-
-      {!isActivated && (
-        <button
-          type="button"
-          className="video-overlay-button"
-          onClick={activateVideo}
-          aria-label={`Открыть видео ${work.title}`}
-        >
-          <span className="video-overlay-icon" aria-hidden="true">
-            ►
-          </span>
-          <span>Открыть видео</span>
-          <small>Загружается только по клику, чтобы не перегружать страницу.</small>
-        </button>
-      )}
-
-      {isActivated && !isReady && !hasError && (
-        <div className="video-status-overlay" aria-live="polite">
-          <strong>Подгружаю видео…</strong>
-          <span>Обычно это быстрее, потому что остальные ролики не тянут сеть одновременно.</span>
-        </div>
-      )}
-
-      {hasError && (
-        <div className="video-status-overlay is-error" role="alert">
-          <strong>Видео не загрузилось с первого раза.</strong>
-          <span>Можно повторить попытку или открыть файл напрямую в новой вкладке.</span>
-          <div className="video-status-actions">
-            <button type="button" className="video-inline-action" onClick={retryVideo}>
-              Повторить
-            </button>
-            <a className="video-inline-action secondary" href={work.video} target="_blank" rel="noreferrer">
-              Открыть файл
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -453,7 +317,7 @@ export default function R3nvioPortfolio() {
       >
         <motion.div className="section-heading" variants={reveal}>
           <p>Работы</p>
-          <AnimatedText as="h2" text="Избранные ролики с чистым монтажом, ритмом и вниманием к подаче." />
+          <AnimatedText as="h2" text="Избранные ролики работы" />
         </motion.div>
 
         <div className="works-stack">
@@ -551,10 +415,10 @@ export default function R3nvioPortfolio() {
           <SpotlightCard className="contacts-panel contacts-panel-noir" spotlightColor="rgba(176, 191, 226, 0.1)">
             <div>
               <p className="section-kicker">Контакты</p>
-              <AnimatedText
-                as="h2"
-                text="Открыт к проектам по видеомонтажу, motion design, YouTube, соцсетям и промо."
-              />
+              <h2 className="contacts-title">
+                <span>Готов взяться за сложные задачи.</span>
+                <span>Открыт для долгосрочного сотрудничества.</span>
+              </h2>
             </div>
             <div className="contacts-list">
               {contacts.map((contact) => (
